@@ -9,12 +9,17 @@ Count number of ISU authored papers in 2022
 Scheduled to run each day at 9:05am automatically through Windows Task Scheduler
 """
 
-
+import os
 import requests
 import dimcli
-import pandas as pd
-from datetime import datetime
 import json
+
+import pandas as pd
+import plotly.express as px
+#from datetime import date
+from datetime import datetime
+
+
 
 def OpenAlex():
     print ("In OpenAlex")
@@ -91,6 +96,7 @@ def WebofScience():
     
     return str(results['QueryResult']['RecordsFound'])
 
+os.system("move *.png old_publisher_graphs")
 
 openalex_sum = OpenAlex()
 dimensions_sum = Dimensions()
@@ -100,8 +106,22 @@ print("\n\nOpenAlex: ", openalex_sum)
 print("Dimensions: ", dimensions_sum)
 print("Web of Science: ", wos_sum)
 
-
 date = datetime.now().strftime("%Y_%m_%d")
 file = open("API_data.csv", "a")
 file.write(date + ',' + openalex_sum + ',' + dimensions_sum + ',' + wos_sum + "\n")
 file.close()
+
+
+##  Graph the data and save as HTML file
+
+df = pd.read_csv('API_data.csv')
+df['Date'] = pd.to_datetime(df['Date'], format='%Y_%m_%d')
+
+fig = px.line(df, x='Date', y=['Dimensions','Web of Science', 'OpenAlex'])
+
+fig.update_layout(title='Number of 2022 ISU authored papers, last updated '+date,
+                  title_x=0.5,
+                  xaxis_title='Date data was pulled',
+                  yaxis_title='Number of 2022 ISU papers')
+
+fig.write_html("API_data_graphed.html")  #save as HTML file, overwrites old versions

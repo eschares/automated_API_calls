@@ -65,18 +65,19 @@ def Dimensions():
     #sum_of_papers = df['count'].sum()   #wrong, only sums the top 20 publishers that got returned
     #print(sum_of_papers)
 
-    ax = df.plot(
-        kind='barh', 
-        x='id', 
-        y='count', 
-        title='2022 ISU authored papers in Dimensions, total ' + str(number_of_papers.count_total) + '\nupdated ' + date, 
-    )
-    
-    ax.yaxis.grid(True, linestyle='--', linewidth=0.5)
-    
-    fig = ax.get_figure()
-    figure_filename = "output_" + date + ".png"
-    fig.savefig(figure_filename)
+    if (0):
+        ax = df.plot(
+            kind='barh', 
+            x='id', 
+            y='count', 
+            title='2022 ISU authored papers in Dimensions, total ' + str(number_of_papers.count_total) + '\nupdated ' + date, 
+        )
+        
+        ax.yaxis.grid(True, linestyle='--', linewidth=0.5)
+        
+        fig = ax.get_figure()
+        figure_filename = "output_" + date + ".png"
+        fig.savefig(figure_filename)
     
     return str(number_of_papers.count_total)
 
@@ -87,10 +88,11 @@ def WebofScience():
     query = "OG = (Iowa State University) AND PY = 2022"
 
 
-    #Here is the call we put out the API. You can enter your formatted query where it says *query*
-    url = "https://api.clarivate.com/api/wos?databaseId=WOS&usrQuery=("+query+")&count=100&firstRecord=1"
+    # Here is the call we put out the API. You can enter your formatted query where it says *query*
+    # 5/27/22 - changed count=0 so we can still get the NUMBER of results, just not using up any of our data with returning records
+    url = "https://api.clarivate.com/api/wos?databaseId=WOS&usrQuery=("+query+")&count=0&firstRecord=1"
     #the request.get function sends out the url request along with the API key
-    r = requests.get(url,headers = {"X-APIKey":"115df63531f281d256dbc4cca6b93c2974f3a6a0"})                                                                           
+    r = requests.get(url,headers = {"X-APIKey":"your_key"})                                                                           
     #the results come back as a json. If there are any papers, the results are stored.  
     results = json.loads(r.text)
     

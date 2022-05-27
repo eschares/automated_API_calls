@@ -23,7 +23,7 @@ from datetime import datetime
 
 def OpenAlex():
     print ("In OpenAlex")
-    OUR_API_URL = "https://api.openalex.org/works?filter=institution.id:I173911158&group_by=publication_year&sort=key:desc&mailto=eschares@iastate.edu"
+    OUR_API_URL = "https://api.openalex.org/works?filter=institution.id:I173911158&group_by=publication_year&sort=key:desc&mailto=your@email"
     api_response = requests.get(OUR_API_URL)
 
     parsed_response = api_response.json()

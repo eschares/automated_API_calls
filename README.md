@@ -12,4 +12,4 @@ Runs each day at 9:05am
 
 ### To run, change:
 - line 26 to include your email address, get into OpenAlex's [polite API pool](https://docs.openalex.org/api#the-polite-pool)
-- line 95 to include your own Web of Science API Key, apply at https://developer.clarivate.com/
+- line 88 to assign your own Web of Science API Key, apply at https://developer.clarivate.com/

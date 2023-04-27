@@ -23,7 +23,7 @@ from datetime import datetime
 
 def OpenAlex():
     print ("In OpenAlex")
-    OUR_API_URL = "https://api.openalex.org/works?filter=institution.id:I173911158&group_by=publication_year&sort=key:desc&mailto=your@email"
+    OUR_API_URL = "https://api.openalex.org/works?filter=institution.id:I173911158&group_by=publication_year&sort=key:desc&mailto=eschares@iastate.edu"
     api_response = requests.get(OUR_API_URL)
 
     parsed_response = api_response.json()
@@ -40,8 +40,8 @@ def OpenAlex():
 
 
 def Dimensions():
-    print ("In Dimensions")
-    dimcli.login()
+    print ("\nIn Dimensions")
+    dimcli.login()      #my Dimensions API key already saved in dimcli installation on my local machine
 
     dsl = dimcli.Dsl()
     
@@ -85,14 +85,15 @@ def WebofScience():
     print ("In WoS")
     #pubs_all = pd.DataFrame(columns = ['number', 'raw_pub_data'])
 
+    clarivate_api_key = os.environ.get('CLARIVATE_API_KEY')     #saved to my Environment Variables
+    
     query = "OG = (Iowa State University) AND PY = 2022"
-
 
     # Here is the call we put out the API. You can enter your formatted query where it says *query*
     # 5/27/22 - changed count=0 so we can still get the NUMBER of results, just not using up any of our data with returning records
     url = "https://api.clarivate.com/api/wos?databaseId=WOS&usrQuery=("+query+")&count=0&firstRecord=1"
     #the request.get function sends out the url request along with the API key
-    r = requests.get(url,headers = {"X-APIKey":"your_key"})                                                                           
+    r = requests.get(url, headers={"X-APIKey": clarivate_api_key})
     #the results come back as a json. If there are any papers, the results are stored.  
     results = json.loads(r.text)
     

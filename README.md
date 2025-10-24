@@ -16,3 +16,5 @@ Uses a .bat file to runs each day at 9:05am, assuming computer is powered on and
 - line 64 to assign your own Web of Science API Key, apply at https://developer.clarivate.com/
 
 ![graph](https://github.com/eschares/automated_API_calls/blob/main/ISU_2022_3databases_comparison.png)
+
+![graph](https://github.com/eschares/automated_API_calls/blob/main/ISU_2024_3databases_comparison.png)
